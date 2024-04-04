@@ -30,6 +30,9 @@ public class TemplateMod : Mod
 
         Log.Message(content.ModMetaData.packageIdLowerCase);
 
+        Settings = GetSettings<TemplateSettings>();
+        WriteSettings();
+
         // Harmony harmony = new(content.ModMetaData.packageIdLowerCase);
     }
 
