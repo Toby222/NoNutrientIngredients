@@ -25,6 +25,6 @@ public static class SettingsWindow
 
     public static string SettingsCategory()
     {
-        return TemplateMod.Translate("SettingsCategory");
+        return "TemplateMod.SettingsCategory".TranslateSafe();
     }
 }

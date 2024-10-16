@@ -1,4 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup Condition="'$(GAME_VERSION)'==''">
+        <DefineConstants>v1_5</DefineConstants>
+        <OutputPath>../1.5/Assemblies</OutputPath>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(GAME_VERSION)'=='v1.5'">
+        <DefineConstants>v1_5</DefineConstants>
+        <OutputPath>../1.5/Assemblies</OutputPath>
+    </PropertyGroup>
     <PropertyGroup>
         <OutputType>Library</OutputType>
         <TargetFramework>net480</TargetFramework>
@@ -6,25 +14,25 @@
         <!-- Modify [RootNamespace], [AssemblyName], [OutputPath], [VersionPrefix] -->
         <RootNamespace>Template</RootNamespace>
         <AssemblyName>Template</AssemblyName>
-        <OutputPath>../1.4/Assemblies</OutputPath>
         <LangVersion>latest</LangVersion>
-        <VersionPrefix>0.1.0.0</VersionPrefix>
+        <VersionPrefix>0.0.0.0</VersionPrefix>
         <!-- do not generate pdb file -->
         <DebugType>none</DebugType>
         <DebugSymbols>false</DebugSymbols>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
         <Nullable>enable</Nullable>
+        <Deterministic>True</Deterministic>
         <!-- Contents of About.xml
             See https://rimworldwiki.com/wiki/Modding_Tutorials/About.xml -->
         <ModMetaData>
-            <packageId>dev.tobot.mod-template</packageId>
-            <name>Mod Template</name>
+            <packageId>dev.tobot.rimworld.template</packageId>
+            <name>Toby's Mod Template</name>
             <authors>
                 <li>Toby</li>
             </authors>
-            <description>A mod template.\nReady to build on NixOS.</description>
+            <description>Template mod for nix and VS Code</description>
             <supportedVersions>
-                <li>1.4</li>
+                <li>1.5</li>
             </supportedVersions>
             <modVersion IgnoreIfNoMatchingField="True">
                 <!-- Gets automatically populated with VersionPrefix (see above) -->
@@ -32,17 +40,21 @@
             <url>https://git.tobot.dev/toby/rimworld-mod-template</url>
             <modDependencies />
             <modDependenciesByVersion>
-                <!-- <v1.4>
+                <v1.5>
                     <li>
                         <packageId>brrainz.harmony</packageId>
                         <displayName>Harmony</displayName>
                         <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
                         <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
                     </li>
-                </v1.4> -->
+                </v1.5>
             </modDependenciesByVersion>
             <loadAfter />
-            <loadAfterByVersion />
+            <loadAfterByVersion>
+                <v1.5>
+                    <li>brrainz.harmony</li>
+                </v1.5>
+            </loadAfterByVersion>
             <forceLoadAfter />
             <loadBefore />
             <loadBeforeByVersion />
@@ -51,22 +63,20 @@
             <incompatibleWithByVersion />
         </ModMetaData>
     </PropertyGroup>
+    <ItemGroup Condition="'$(GAME_VERSION)'==''">
+        <!-- <PackageReference Include="Krafs.Rimworld.Ref" Version="1.5.4104" /> -->
+        <Reference Include="RimWorld" HintPath="/home/toby/.local/share/Steam/steamapps/common/RimWorld/RimWorldLinux_Data/Managed/Assembly-CSharp.dll" IncludeAssets="compile" Private="false" />
+        <PackageReference Include="Lib.Harmony" Version="2.3.3" IncludeAssets="compile" />
+    </ItemGroup>
+    <ItemGroup Condition="'$(GAME_VERSION)'=='v1.5'">
+        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.5.4104" />
+        <!-- <Reference Include="RimWorld" HintPath="/home/toby/.local/share/Steam/steamapps/common/RimWorld/RimWorldLinux_Data/Managed/Assembly-CSharp.dll" IncludeAssets="compile" Private="false" /> -->
+        <PackageReference Include="Lib.Harmony" Version="2.3.3" IncludeAssets="compile" />
+    </ItemGroup>
     <ItemGroup>
         <!-- Mod -->
-        <Compile Include="../Source/**/*" />
-        <PackageReference Include="Krafs.Rimworld.Ref"
-                          Version="1.4.3901" />
-        <!-- Set IncludeAssets to 'compile' to enable Harmony -->
-        <PackageReference Include="Lib.Harmony"
-                          Version="2.3.3"
-                          IncludeAssets="none" />
-        <PackageReference Include="roslynator.analyzers"
-                          Version="4.12.0"
-                          IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive"
-                          PrivateAssets="all" />
-        <PackageReference Include="roslynator.formatting.analyzers"
-                          Version="4.12.0"
-                          IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive"
-                          PrivateAssets="all" />
+        <Compile Include="../Source/**/*.cs" />
+        <PackageReference Include="roslynator.analyzers" Version="4.12.5" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" PrivateAssets="all" />
+        <PackageReference Include="roslynator.formatting.analyzers" Version="4.12.5" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" PrivateAssets="all" />
     </ItemGroup>
 </Project>

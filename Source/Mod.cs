@@ -7,28 +7,33 @@ namespace Template;
 using Settings;
 using UnityEngine;
 
+#if DEBUG
+#warning Compiling in Debug mode
+#endif
+
 public class TemplateMod : Mod
 {
-    internal static string Translate(string key)
-    {
-        const string TranslationKey = nameof(TemplateMod);
-        return (TranslationKey + "." + key).Translate();
-    }
-
     public TemplateMod(ModContentPack content)
         : base(content)
     {
+#if v1_5
+        const string GAME_VERSION = "v1.5";
+#else
+#error No version defined
+        const string GAME_VERSION = "UNDEFINED";
+#endif
+
 #if DEBUG
         const string build = "Debug";
 #else
         const string build = "Release";
 #endif
-        Log.Message(
-            $"Running Version {Assembly.GetAssembly(typeof(TemplateMod)).GetName().Version} "
+        Log(
+            $"Running Version {Assembly.GetAssembly(typeof(TemplateMod)).GetName().Version} {build} compiled for RimWorld version {GAME_VERSION}"
                 + build
         );
 
-        Log.Message(content.ModMetaData.packageIdLowerCase);
+        Log(content.ModMetaData.packageIdLowerCase);
 
         Settings = GetSettings<TemplateSettings>();
         WriteSettings();
@@ -42,54 +47,52 @@ public class TemplateMod : Mod
 
 #nullable enable
 
-    public void ResetSettings()
-    {
-        Settings = new();
-    }
-
     public override void DoSettingsWindowContents(Rect inRect) =>
         SettingsWindow.DoSettingsWindowContents(inRect);
 
     public override string SettingsCategory() => SettingsWindow.SettingsCategory();
 
-    public static class Log
+    const string LogPrefix = "Toby's Template Mod - ";
+
+    public static void DebugError(string message, int? key = null)
     {
-        const string LogPrefix = "Toby's Template Mod - ";
-
-        public static void DebugError(string message)
-        {
 #if DEBUG
-            Error(message);
+        Error(message, key);
 #endif
-        }
+    }
 
-        public static void Error(string message)
-        {
+    public static void Error(string message, int? key = null)
+    {
+        if (key is int keyNotNull)
+            Verse.Log.ErrorOnce(LogPrefix + message, keyNotNull);
+        else
             Verse.Log.Error(LogPrefix + message);
-        }
+    }
 
-        public static void DebugWarn(string message)
-        {
+    public static void DebugWarn(string message, int? key = null)
+    {
 #if DEBUG
-            Warn(message);
+        Warn(message, key);
 #endif
-        }
+    }
 
-        public static void Warn(string message)
-        {
+    public static void Warn(string message, int? key = null)
+    {
+        if (key is int keyNotNull)
+            Verse.Log.WarningOnce(LogPrefix + message, keyNotNull);
+        else
             Verse.Log.Warning(LogPrefix + message);
-        }
+    }
 
-        public static void DebugLog(string message)
-        {
+    public static void DebugLog(string message)
+    {
 #if DEBUG
-            Message(message);
+        Log(message);
 #endif
-        }
+    }
 
-        public static void Message(string message)
-        {
-            Verse.Log.Message(LogPrefix + message);
-        }
+    public static void Log(string message)
+    {
+        Verse.Log.Message(LogPrefix + message);
     }
 }

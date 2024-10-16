@@ -3,29 +3,13 @@
   "files.exclude": {
     ".direnv": true,
     ".vscode/obj": true,
-    "*/Assemblies/": true
+    "*/Assemblies/": true,
+    "1.4": true
   },
   "files.readonlyInclude": {
     "log/rimworld.log": true,
     "About/About.xml": true
   },
-  "omnisharp.organizeImportsOnFormat": true,
-  "dotnet.inlayHints.enableInlayHintsForParameters": true,
-  "dotnet.inlayHints.enableInlayHintsForLiteralParameters": true,
-  "dotnet.inlayHints.enableInlayHintsForIndexerParameters": true,
-  "dotnet.inlayHints.enableInlayHintsForObjectCreationParameters": true,
-  "dotnet.inlayHints.enableInlayHintsForOtherParameters": true,
-  "dotnet.inlayHints.suppressInlayHintsForParametersThatDifferOnlyBySuffix": true,
-  "dotnet.inlayHints.suppressInlayHintsForParametersThatMatchMethodIntent": true,
-  "dotnet.inlayHints.suppressInlayHintsForParametersThatMatchArgumentName": true,
-  "csharp.inlayHints.enableInlayHintsForTypes": true,
-  "csharp.inlayHints.enableInlayHintsForImplicitVariableTypes": true,
-  "csharp.inlayHints.enableInlayHintsForLambdaParameterTypes": true,
-  "csharp.inlayHints.enableInlayHintsForImplicitObjectCreation": true,
-  "csharp.suppressDotnetInstallWarning": true,
-  "csharp.suppressDotnetRestoreNotification": true,
-  "dotnet.server.useOmnisharp": true,
-  "omnisharp.enableLspDriver": false,
   "[xml]": {
     "editor.quickSuggestions": {
       "other": "on",
@@ -36,8 +20,18 @@
   "[jsonc]": {
     "editor.quickSuggestions": {
       "strings": true
-    },
-    "editor.suggest.insertMode": "replace",
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+    }
+  },
+  "csharp.inlayHints.enableInlayHintsForImplicitObjectCreation": true,
+  "csharp.inlayHints.enableInlayHintsForImplicitVariableTypes": true,
+  "csharp.inlayHints.enableInlayHintsForLambdaParameterTypes": true,
+  "csharp.inlayHints.enableInlayHintsForTypes": true,
+  "dotnet.inlayHints.enableInlayHintsForIndexerParameters": true,
+  "dotnet.inlayHints.enableInlayHintsForLiteralParameters": true,
+  "dotnet.inlayHints.enableInlayHintsForObjectCreationParameters": true,
+  "dotnet.inlayHints.enableInlayHintsForOtherParameters": true,
+  "dotnet.inlayHints.enableInlayHintsForParameters": true,
+  "dotnet.inlayHints.suppressInlayHintsForParametersThatDifferOnlyBySuffix": true,
+  "dotnet.inlayHints.suppressInlayHintsForParametersThatMatchArgumentName": true,
+  "dotnet.inlayHints.suppressInlayHintsForParametersThatMatchMethodIntent": true
 }

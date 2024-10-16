@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-  <packageId>dev.tobot.mod-template</packageId>
-  <name>Mod Template</name>
+  <packageId>dev.tobot.rimworld.template</packageId>
+  <name>Toby's Mod Template</name>
   <authors>
     <li>Toby</li>
   </authors>
-  <description>A mod template.\nReady to build on NixOS.</description>
+  <description>Template mod for nix and VS Code</description>
   <supportedVersions>
-    <li>1.4</li>
+    <li>1.5</li>
   </supportedVersions>
-  <modVersion IgnoreIfNoMatchingField="True">0.1.0.0</modVersion>
+  <modVersion IgnoreIfNoMatchingField="True">0.0.0.0</modVersion>
   <url>https://git.tobot.dev/toby/rimworld-mod-template</url>
   <modDependencies/>
   <modDependenciesByVersion>
-    <!-- <v1.4>
+    <v1.5>
       <li>
         <packageId>brrainz.harmony</packageId>
         <displayName>Harmony</displayName>
         <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
         <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
       </li>
-    </v1.4> -->
+    </v1.5>
   </modDependenciesByVersion>
   <loadAfter/>
-  <loadAfterByVersion/>
+  <loadAfterByVersion>
+    <v1.5>
+      <li>brrainz.harmony</li>
+    </v1.5>
+  </loadAfterByVersion>
   <forceLoadAfter/>
   <loadBefore/>
   <loadBeforeByVersion/>
   <forceLoadBefore/>
   <incompatibleWith/>
-  <incompatibleWithByVersion/>
+  <incompatibleWithByVersion>
+    <v1.5/>
+  </incompatibleWithByVersion>
 </ModMetaData>

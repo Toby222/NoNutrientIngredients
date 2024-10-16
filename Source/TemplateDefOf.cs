@@ -6,7 +6,7 @@ using Verse;
 namespace Template;
 
 [DefOf]
-public static class StinkyTweaksDefOf
+public static class TemplateDefOf
 {
     public static LetterDef success_letter;
 }

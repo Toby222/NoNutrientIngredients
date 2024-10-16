@@ -12,9 +12,8 @@ public class TemplateMapComponent(Map map) : MapComponent(map)
         Messages.Message("Success", null, MessageTypeDefOf.PositiveEvent);
         Find.LetterStack.ReceiveLetter(
             "Success",
-            StinkyTweaksDefOf.success_letter.description,
-            StinkyTweaksDefOf.success_letter,
-            null
+            TemplateDefOf.success_letter.description,
+            TemplateDefOf.success_letter
         );
     }
 }

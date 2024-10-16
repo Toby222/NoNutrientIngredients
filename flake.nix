@@ -1,10 +1,13 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     systems.url = "github:nix-systems/default";
     # Dev tools
-    treefmt-nix.url = "github:numtide/treefmt-nix";
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -22,16 +25,17 @@
           ...
         }:
         {
-          # Rust dev environment
           devShells.default = pkgs.mkShell {
             inputsFrom = [ config.treefmt.build.devShell ];
             nativeBuildInputs = with pkgs; [
-              dotnet-sdk_8
-              libxslt
+              dotnetCorePackages.dotnet_8.sdk
+              nixfmt-rfc-style
+              omnisharp-roslyn
+              libxslt.bin
+              nodePackages.npm
             ];
-            shellHook = ''
-              DOTNET_ROOT="${pkgs.dotnet-sdk_8}";
-            '';
+
+            DOTNET_ROOT = "${pkgs.dotnet-sdk_8}";
           };
 
           # Add your auto-formatters here.
@@ -39,10 +43,48 @@
           treefmt.config = {
             projectRootFile = "flake.nix";
             programs = {
-              nixpkgs-fmt.enable = true;
-              csharpier.enable = true;
-              nixfmt-rfc-style.enable = true;
+              csharpier = {
+                enable = true;
+                dotnet-sdk = pkgs.dotnet-sdk_6;
+                package = pkgs.csharpier;
+              };
+              nixfmt.enable = true;
+              shfmt.enable = true;
+              prettier = {
+                enable = true;
+                includes = [
+                  "**/*.xml"
+                  "**/*.xslt"
+                  "**/*.json"
+                  "**/*.csproj"
+                  ".github/workflows/*"
+                ];
+                settings = {
+                  plugins = [ "@prettier/plugin-xml" ];
+                  bracketSameLine = true;
+                  printWidth = 1000;
+                  overrides = [
+                    {
+                      files = "*.xml";
+                      options = {
+                        xmlQuoteAttributes = "double";
+                        xmlSortAttributesByKey = true;
+                        xmlWhitespaceSensitivity = "preserve";
+                      };
+                    }
+                  ];
+                };
+              };
             };
+            settings.global.excludes = [
+              ".direnv"
+              "node_modules"
+              "1.4/**/*"
+              "*.ase"
+              "*.dll"
+              "*.png"
+              "About/About.xml"
+            ];
           };
         };
     };
