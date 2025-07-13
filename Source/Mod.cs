@@ -1,5 +1,7 @@
 using System.Reflection;
+
 using RimWorld;
+
 using Verse;
 
 #if DEBUG
@@ -15,19 +17,21 @@ public static class NoNutrientIngredients
     {
 #if v1_5
         const string GAME_VERSION = "v1.5";
+#elif v1_6
+        const string GAME_VERSION = "v1.6";
 #else
 #error No version defined
         const string GAME_VERSION = "UNDEFINED";
 #endif
 
 #if DEBUG
-        const string build = "Debug";
+        const string BUILD = "Debug";
 #else
-        const string build = "Release";
+        const string BUILD = "Release";
 #endif
         Log.Message(
-            $"Running Version {Assembly.GetAssembly(typeof(NoNutrientIngredients)).GetName().Version} {build} compiled for RimWorld version {GAME_VERSION}"
-                + build
+            $"Running Version {Assembly.GetAssembly(typeof(NoNutrientIngredients)).GetName().Version} {BUILD} compiled for RimWorld version {GAME_VERSION}"
+                + BUILD
         );
         new HarmonyLib.Harmony("dev.tobot.rimworld.nonutrientingredients").PatchAll();
     }
@@ -36,12 +40,8 @@ public static class NoNutrientIngredients
         typeof(Building_NutrientPasteDispenser),
         nameof(Building_NutrientPasteDispenser.TryDispenseFood)
     )]
-	[JetBrains.Annotations.UsedImplicitly]
     public static class NutrientPatch
     {
-        static void Postfix(ref Thing __result)
-        {
-            __result.TryGetComp<CompIngredients>()?.ingredients.Clear();
-        }
+        public static void Postfix(ref Thing __result) => __result.TryGetComp<CompIngredients>()?.ingredients.Clear();
     }
 }

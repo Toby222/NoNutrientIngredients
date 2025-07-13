@@ -1,14 +1,13 @@
 {
-  // "explorer.excludeGitIgnore": true,
   "files.exclude": {
     ".direnv": true,
     ".vscode/obj": true,
-    "*/Assemblies/": true,
-    "1.4": true
+    "*/Assemblies/": false
   },
   "files.readonlyInclude": {
     "log/rimworld.log": true,
-    "About/About.xml": true
+    "About/About.xml": true,
+    "1.5": true
   },
   "[xml]": {
     "editor.quickSuggestions": {
@@ -33,5 +32,7 @@
   "dotnet.inlayHints.enableInlayHintsForParameters": true,
   "dotnet.inlayHints.suppressInlayHintsForParametersThatDifferOnlyBySuffix": true,
   "dotnet.inlayHints.suppressInlayHintsForParametersThatMatchArgumentName": true,
-  "dotnet.inlayHints.suppressInlayHintsForParametersThatMatchMethodIntent": true
+  "dotnet.inlayHints.suppressInlayHintsForParametersThatMatchMethodIntent": true,
+  "dotnet.backgroundAnalysis.analyzerDiagnosticsScope": "fullSolution",
+  "omnisharp.enableEditorConfigSupport": true
 }

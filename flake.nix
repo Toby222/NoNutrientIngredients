@@ -28,14 +28,11 @@
           devShells.default = pkgs.mkShell {
             inputsFrom = [ config.treefmt.build.devShell ];
             nativeBuildInputs = with pkgs; [
-              dotnetCorePackages.dotnet_8.sdk
+              dotnetCorePackages.sdk_9_0
               nixfmt-rfc-style
-              omnisharp-roslyn
               libxslt.bin
               nodePackages.npm
             ];
-
-            DOTNET_ROOT = "${pkgs.dotnet-sdk_8}";
           };
 
           # Add your auto-formatters here.
@@ -43,11 +40,6 @@
           treefmt.config = {
             projectRootFile = "flake.nix";
             programs = {
-              csharpier = {
-                enable = true;
-                dotnet-sdk = pkgs.dotnet-sdk_6;
-                package = pkgs.csharpier;
-              };
               nixfmt.enable = true;
               shfmt.enable = true;
               prettier = {
@@ -79,7 +71,7 @@
             settings.global.excludes = [
               ".direnv"
               "node_modules"
-              "1.4/**/*"
+              "1.5/**/*"
               "*.ase"
               "*.dll"
               "*.png"
