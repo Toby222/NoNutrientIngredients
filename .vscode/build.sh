@@ -1,7 +1,7 @@
 set -e
 set -x
 
-script_dir=$(dirname $(readlink -f $0))
+script_dir=$(dirname $(realpath $0))
 mod_dir=$(dirname $script_dir)
 pushd $script_dir
 
@@ -9,10 +9,10 @@ configuration=${1:-Debug}
 
 # build dll
 echo "Building for RimWorld 1.5"
-rm -f $mod_dir/1.5/Assemblies/BetterAutocastVPE.dll
+rm -f $mod_dir/1.5/Assemblies/NoNutrientIngredients.dll
 dotnet build $script_dir/mod.csproj -c ${configuration} -p:GAME_VERSION=v1.5
 echo "Building for RimWorld 1.6"
-rm -f $mod_dir/1.6/Assemblies/BetterAutocastVPE.dll
+rm -f $mod_dir/1.6/Assemblies/NoNutrientIngredients.dll
 dotnet build $script_dir/mod.csproj -c ${configuration} -p:GAME_VERSION=v1.6
 
 # generate About.xml

@@ -1,4 +1,3 @@
-/.vscode/obj
-/.direnv/
-/log/rimworld.log
-/node_modules/
+.direnv
+.vscode/obj
+log

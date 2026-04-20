@@ -1,13 +1,13 @@
 {
+  // "explorer.excludeGitIgnore": true,
   "files.exclude": {
     ".direnv": true,
     ".vscode/obj": true,
-    "*/Assemblies/": false
+    "*/Assemblies/": true
   },
   "files.readonlyInclude": {
     "log/rimworld.log": true,
-    "About/About.xml": true,
-    "1.5": true
+    "About/About.xml": true
   },
   "[xml]": {
     "editor.quickSuggestions": {
